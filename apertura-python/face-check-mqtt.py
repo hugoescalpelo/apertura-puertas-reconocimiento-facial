@@ -1,16 +1,20 @@
-# Bibliotecas
+# Importar Bilbioteca
+from deepface import DeepFace
+import pandas as pd
 from paho.mqtt import client as mqtt_client
 import random
 import time
 
-# Datos del boker
-broker = '3.120.0.43'
+# Variables y constantes - Datos del boker
+broker = '127.0.0.1'
 port = 1883
 topic = "codigoIoT/mqtt/python"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
 # username = 'emqx'
 # password = 'public'
+
+# Definición de funciones
 
 # Conexion al broker
 def connect_mqtt():
@@ -26,25 +30,10 @@ def connect_mqtt():
     client.connect(broker, port)
     return client
 
-
-def publish(client):
-    msg_count = 0
-    while True:
-        time.sleep(1)
-        msg = f"Hugo Vargas: {msg_count}"
-        result = client.publish(topic, msg)
-        # result: [0, 1]
-        status = result[0]
-        if status == 0:
-            print(f"Send `{msg}` to topic `{topic}`")
-        else:
-            print(f"Failed to send message to topic {topic}")
-        msg_count += 1
-
-def publish2(client):
+def publish2(client, mensaje):
     #while True:
     time.sleep(1)
-    msg = f"Hola MQTT Python - Hugo Vargas 7"
+    msg = mensaje
     result = client.publish(topic, msg)
     time.sleep(1)
     print (result)
@@ -54,13 +43,20 @@ def publish2(client):
         print(f"Send `{msg}` to topic `{topic}`")
     else:
         print(f"Failed to send message to topic {topic}")
+    
+# Buscar Rostro
+print ("Buscando rostro")
 
+# df = DeepFace.find(img_path = "img1.jpg", db_path = "C:/workspace/my_db")
+df = DeepFace.find (img_path = "/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/deepface/faces/aigeneratedface2.jpg", db_path = "/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/deepface/my_db", enforce_detection = "false")
+print ("Resultado ")
+print (df)
+print ("Imagen de mayor similitud")
+print (df.identity[0])
 
-def run():
-    client = connect_mqtt()
-    client.loop_start()
-    publish(client)
-
-
-if __name__ == '__main__':
-    run()
+print ("Conectandose al broker")
+client = connect_mqtt()
+client.loop_start()
+print ("Enviando mensaje")
+publish2(client, df.identity[0])
+print ("Mensaje enviado")
