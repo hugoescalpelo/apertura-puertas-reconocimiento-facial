@@ -27,13 +27,11 @@ def connect_mqtt():
     client.connect(broker, port)
     return client
 
-def publish(client, mensaje,indice):
+def publish(client, mensaje):
     #while True:
     time.sleep(1)
     msg = mensaje
     result = client.publish(topic, msg)
-    time.sleep(1)
-    result2 = client.publish (topic2, indice)
     time.sleep(1)
     print (result)
     # result: [0, 1]
@@ -51,12 +49,12 @@ print ("Buscando rostro")
 df = DeepFace.find (img_path = "/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/deepface/faces/aigeneratedface2.jpg", db_path = "/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/deepface/my_db", enforce_detection = "false")
 print ("Resultado ")
 print (df)
-print ("Imagen de mayor similitud")
-print (df.identity[0])
-print ("Atributos")
-print (vars(df))
+json_view = df.to_json(orient="index")
+print ("La expresion en JSON de los resultados es: ")
+print (json_view)
+
 
 # Envio
 client = connect_mqtt()
 client.loop_start()
-publish(client, df.identity[0],df.VGG-Face_cosine[0])
+publish(client, json_view)
