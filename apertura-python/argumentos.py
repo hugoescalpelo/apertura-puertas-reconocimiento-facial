@@ -1,9 +1,12 @@
-# https://docs.python.org/3/howto/argparse.html#id1
-
+# Bibliotecas
 import argparse
+
+# Parser
 parser = argparse.ArgumentParser()
-parser.add_argument("i", help="Path to img")
-parser.add_argument("j", help="Path to img database")
+parser.add_argument("img_src", help="Imagen a buscar en la DB del caras")
+parser.add_argument("db_path", help="Ruta de la base de datos de caras")
 args = parser.parse_args()
-answer = ("img path " + args.i + " db path " + args.j)
-print (answer)
+
+ruta = args.img_src + " " + args.db_path
+
+print ("Las rutas recibidas son: " + ruta)
