@@ -1,0 +1,733 @@
+[
+    {
+        "id": "a31a9a9605b337cb",
+        "type": "tab",
+        "label": "Apertura de puertas por reconocimiento facial",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3deef8c939d996dc",
+        "type": "exec",
+        "z": "a31a9a9605b337cb",
+        "command": "python3 /home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/apertura-python/face-check-args.py",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 930,
+        "y": 220,
+        "wires": [
+            [
+                "62f7f05281304d19"
+            ],
+            [
+                "62f7f05281304d19"
+            ],
+            [
+                "62f7f05281304d19"
+            ]
+        ]
+    },
+    {
+        "id": "5fba7105bea2bcaf",
+        "type": "comment",
+        "z": "a31a9a9605b337cb",
+        "name": "Ejecutar el reconocimiento facial",
+        "info": "",
+        "x": 170,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "62f7f05281304d19",
+        "type": "debug",
+        "z": "a31a9a9605b337cb",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1480,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e11dd2a1136da8e4",
+        "type": "comment",
+        "z": "a31a9a9605b337cb",
+        "name": "Escuchador MQTT",
+        "info": "",
+        "x": 130,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "687ce0998b0e0a93",
+        "type": "mqtt in",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "topic": "codigoIoT/mqtt/python",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "9c0ed33ac6aef07c",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "6a5efb40f1fc5cd6",
+                "efa02925df0826c9",
+                "25f82e6e9f8d411d",
+                "fc71d2a9781ed84d"
+            ]
+        ]
+    },
+    {
+        "id": "6a5efb40f1fc5cd6",
+        "type": "debug",
+        "z": "a31a9a9605b337cb",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "fe27d79e2b417628",
+        "type": "ui_webcam",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "group": "aebd01f1dee6ccb1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "countdown": false,
+        "autoStart": true,
+        "hideCaptureButton": false,
+        "showImage": "2",
+        "mirror": true,
+        "format": "jpeg",
+        "x": 100,
+        "y": 700,
+        "wires": [
+            [
+                "7059a672576b8cb8"
+            ]
+        ]
+    },
+    {
+        "id": "05d55e9ff262dce5",
+        "type": "file",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 660,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f910100a440b1b00",
+        "type": "inject",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 760,
+        "wires": [
+            [
+                "0e685e7219664cf3"
+            ]
+        ]
+    },
+    {
+        "id": "0e685e7219664cf3",
+        "type": "function",
+        "z": "a31a9a9605b337cb",
+        "name": "timeNow",
+        "func": "global.set (\"timeNow\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7059a672576b8cb8",
+        "type": "function",
+        "z": "a31a9a9605b337cb",
+        "name": "filename",
+        "func": "msg.filename = \"/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/photos/\" + global.get (\"timeNow\") + \".jpg\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 700,
+        "wires": [
+            [
+                "05d55e9ff262dce5"
+            ]
+        ]
+    },
+    {
+        "id": "786d4c7d93f858ae",
+        "type": "http request",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "https://github.com/hugoescalpelo/apertura-puertas-reconocimiento-facial/blob/main/deepface/faces/deniro.png?raw=true",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 640,
+        "wires": [
+            [
+                "7059a672576b8cb8"
+            ]
+        ]
+    },
+    {
+        "id": "76f6bd39a4ca1734",
+        "type": "ui_button",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "group": "13c2303bc96b9f80",
+        "order": 1,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "button",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "7c93f9d40d75220a"
+            ]
+        ]
+    },
+    {
+        "id": "52b57993cc63d361",
+        "type": "ui_text_input",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "label": "Path a la imagen a analizar",
+        "tooltip": "",
+        "group": "13c2303bc96b9f80",
+        "order": 3,
+        "width": 14,
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "070901faa7efb57e"
+            ]
+        ]
+    },
+    {
+        "id": "070901faa7efb57e",
+        "type": "function",
+        "z": "a31a9a9605b337cb",
+        "name": "Img_Src",
+        "func": "global.set (\"img_src\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "424104dc73d414df",
+        "type": "ui_text_input",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "label": "Path a base de datos de rostros",
+        "tooltip": "",
+        "group": "13c2303bc96b9f80",
+        "order": 4,
+        "width": 14,
+        "height": 1,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 170,
+        "y": 160,
+        "wires": [
+            [
+                "8c8322f763313a24"
+            ]
+        ]
+    },
+    {
+        "id": "8c8322f763313a24",
+        "type": "function",
+        "z": "a31a9a9605b337cb",
+        "name": "my_db",
+        "func": "global.set (\"my_db\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c93f9d40d75220a",
+        "type": "function",
+        "z": "a31a9a9605b337cb",
+        "name": "Append",
+        "func": "msg.payload = \" \" + global.get (\"img_src\") + \" \" + global.get (\"my_db\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "3deef8c939d996dc"
+            ]
+        ]
+    },
+    {
+        "id": "efa02925df0826c9",
+        "type": "ui_text",
+        "z": "a31a9a9605b337cb",
+        "group": "13c2303bc96b9f80",
+        "order": 5,
+        "width": 14,
+        "height": 5,
+        "name": "",
+        "label": "Respuesta completa",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 440,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "fd76ebff62210a5e",
+        "type": "ui_text",
+        "z": "a31a9a9605b337cb",
+        "group": "13c2303bc96b9f80",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Path de mayor similitud",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 730,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "25f82e6e9f8d411d",
+        "type": "function",
+        "z": "a31a9a9605b337cb",
+        "name": "Path de mayor similitud",
+        "func": "msg.payload = msg.payload[\"0\"].identity;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 440,
+        "wires": [
+            [
+                "fd76ebff62210a5e",
+                "972406b26d698ea7"
+            ]
+        ]
+    },
+    {
+        "id": "fc71d2a9781ed84d",
+        "type": "function",
+        "z": "a31a9a9605b337cb",
+        "name": "Porcentaje de similitud",
+        "func": "msg.payload = (1 - msg.payload[\"0\"][\"VGG-Face_cosine\"]) * 100;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 400,
+        "wires": [
+            [
+                "ba29e77e6cec8dad"
+            ]
+        ]
+    },
+    {
+        "id": "ba29e77e6cec8dad",
+        "type": "ui_text",
+        "z": "a31a9a9605b337cb",
+        "group": "13c2303bc96b9f80",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Porcentaje de similitud",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 720,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "972406b26d698ea7",
+        "type": "string",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "methods": [
+            {
+                "name": "delRightMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "/"
+                    }
+                ]
+            },
+            {
+                "name": "append",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "/info.json"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 670,
+        "y": 500,
+        "wires": [
+            [
+                "99c5cf1fd8330d08"
+            ]
+        ]
+    },
+    {
+        "id": "ecaf8bbba72e8d20",
+        "type": "inject",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/deepface/my_db/persona2/img01.png",
+        "payloadType": "str",
+        "x": 390,
+        "y": 500,
+        "wires": [
+            [
+                "972406b26d698ea7"
+            ]
+        ]
+    },
+    {
+        "id": "d87f16e6511fa736",
+        "type": "debug",
+        "z": "a31a9a9605b337cb",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1380,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "99c5cf1fd8330d08",
+        "type": "file in",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "filename": "payload",
+        "filenameType": "msg",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 900,
+        "y": 500,
+        "wires": [
+            [
+                "794f74c6a94e7c2f"
+            ]
+        ]
+    },
+    {
+        "id": "794f74c6a94e7c2f",
+        "type": "json",
+        "z": "a31a9a9605b337cb",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 1130,
+        "y": 500,
+        "wires": [
+            [
+                "d87f16e6511fa736",
+                "154e8eac21176e65",
+                "444055a35f1c80cf",
+                "7cca2a99dbb7d0b1",
+                "8ef667216daf1a31"
+            ]
+        ]
+    },
+    {
+        "id": "154e8eac21176e65",
+        "type": "ui_text",
+        "z": "a31a9a9605b337cb",
+        "group": "4e10d44cd8232e2b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Nombre",
+        "format": "{{msg.payload.nombre}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1380,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "444055a35f1c80cf",
+        "type": "ui_text",
+        "z": "a31a9a9605b337cb",
+        "group": "4e10d44cd8232e2b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Cumpleaños",
+        "format": "{{msg.payload[\"cumpleaños\"]}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1390,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "8ef667216daf1a31",
+        "type": "ui_text",
+        "z": "a31a9a9605b337cb",
+        "group": "4e10d44cd8232e2b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Edad",
+        "format": "{{msg.payload.edad}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1370,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "7cca2a99dbb7d0b1",
+        "type": "ui_text",
+        "z": "a31a9a9605b337cb",
+        "group": "4e10d44cd8232e2b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Nivel de Acceso",
+        "format": "{{msg.payload.acceso}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1400,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "29d29270707e8f97",
+        "type": "ui_spacer",
+        "z": "a31a9a9605b337cb",
+        "name": "spacer",
+        "group": "13c2303bc96b9f80",
+        "order": 2,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "9c0ed33ac6aef07c",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "aebd01f1dee6ccb1",
+        "type": "ui_group",
+        "name": "Webcam",
+        "tab": "1dd5d1d4d761a73c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "13c2303bc96b9f80",
+        "type": "ui_group",
+        "name": "Reconocimiento facial",
+        "tab": "1dd5d1d4d761a73c",
+        "order": 2,
+        "disp": true,
+        "width": 14,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4e10d44cd8232e2b",
+        "type": "ui_group",
+        "name": "Datos",
+        "tab": "1dd5d1d4d761a73c",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1dd5d1d4d761a73c",
+        "type": "ui_tab",
+        "name": "Apertura de puertas por reconocimiento facial",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    }
+]
