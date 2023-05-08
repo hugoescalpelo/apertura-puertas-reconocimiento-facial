@@ -65,3 +65,4 @@ print (json_view)
 client = connect_mqtt()
 client.loop_start()
 publish(client, json_view)
+
