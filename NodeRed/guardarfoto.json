@@ -1,0 +1,80 @@
+[
+    {
+        "id": "574e3f422aaf5d2b",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "91bbeab6208a7b53",
+        "type": "http request",
+        "z": "574e3f422aaf5d2b",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "192.168.15.14/capture",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "3cb4707c74266e17"
+            ]
+        ]
+    },
+    {
+        "id": "48dbd0c5fe84f930",
+        "type": "inject",
+        "z": "574e3f422aaf5d2b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "91bbeab6208a7b53"
+            ]
+        ]
+    },
+    {
+        "id": "3cb4707c74266e17",
+        "type": "file",
+        "z": "574e3f422aaf5d2b",
+        "name": "",
+        "filename": "/home/hugo/Desktop/foto",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 690,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    }
+]
