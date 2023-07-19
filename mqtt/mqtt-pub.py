@@ -4,7 +4,7 @@ import random
 import time
 
 # Datos del boker
-broker = '3.120.0.43'
+broker = '127.0.0.1'
 port = 1883
 topic = "codigoIoT/mqtt/python"
 # generate client ID with pub prefix randomly

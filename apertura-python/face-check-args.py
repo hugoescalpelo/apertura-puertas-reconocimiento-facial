@@ -56,9 +56,12 @@ print ("Buscando rostro")
 df = DeepFace.find (img_path = args.img_src, db_path = args.db_path, enforce_detection = "false")
 print ("Resultado ")
 print (df)
-json_view = df.to_json(orient="index")
+#json_view = df.to_json(orient="index")
+#json_view = df.to_json()
+df = pd.concat(df, ignore_index=True)
+json_view = df.to_json()
 print ("La expresion en JSON de los resultados es: ")
-print (json_view)
+print (df)
 
 
 # Envio
