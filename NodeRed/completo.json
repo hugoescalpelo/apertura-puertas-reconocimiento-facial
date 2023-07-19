@@ -285,7 +285,7 @@
         "type": "function",
         "z": "d6c0238f4ecb9fcd",
         "name": "Path de mayor similitud",
-        "func": "msg.payload = msg.payload[\"0\"].identity;\nreturn msg;",
+        "func": "msg.payload = msg.payload.identity[\"0\"];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -305,7 +305,7 @@
         "type": "function",
         "z": "d6c0238f4ecb9fcd",
         "name": "Porcentaje de similitud",
-        "func": "msg.payload = (1 - msg.payload[\"0\"][\"VGG-Face_cosine\"]) * 100;\nreturn msg;",
+        "func": "msg.payload = (1 - msg.payload[\"VGG-Face_cosine\"][\"0\"]) * 100;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -490,43 +490,6 @@
         ]
     },
     {
-        "id": "f2bce85cace1091b",
-        "type": "string",
-        "z": "d6c0238f4ecb9fcd",
-        "name": "",
-        "methods": [
-            {
-                "name": "delRightMost",
-                "params": [
-                    {
-                        "type": "str",
-                        "value": "/"
-                    }
-                ]
-            },
-            {
-                "name": "append",
-                "params": [
-                    {
-                        "type": "str",
-                        "value": "/info.json"
-                    }
-                ]
-            }
-        ],
-        "prop": "payload",
-        "propout": "payload",
-        "object": "msg",
-        "objectout": "msg",
-        "x": 670,
-        "y": 500,
-        "wires": [
-            [
-                "57909e3646ba014f"
-            ]
-        ]
-    },
-    {
         "id": "be92435960a4b267",
         "type": "comment",
         "z": "d6c0238f4ecb9fcd",
@@ -541,7 +504,7 @@
         "type": "function",
         "z": "d6c0238f4ecb9fcd",
         "name": "Indice detección",
-        "func": "var indice = (1 - msg.payload[\"0\"][\"VGG-Face_cosine\"]) * 100;\nif (indice > 75) {\n    msg.payload = \"Indice de coincidencia mínimo alcanzado\";\n    global.set (\"indice_d\", 1);\n} else {\n    msg.payload = \"Indice de coincidencia mínima no alcanzado\";\n    global.set(\"indice_d\", 0);\n}\nreturn msg;",
+        "func": "var indice = (1 - msg.payload[\"VGG-Face_cosine\"][\"0\"]) * 100;\nif (indice > 75) {\n    msg.payload = \"Indice de coincidencia mínimo alcanzado\";\n    global.set (\"indice_d\", 1);\n} else {\n    msg.payload = \"Indice de coincidencia mínima no alcanzado\";\n    global.set(\"indice_d\", 0);\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -732,7 +695,7 @@
         "order": 7,
         "width": 0,
         "height": 0,
-        "format": "<iframe id=\"Video\" title=\"Video\" width=\"300\" height=\"200\"\n    src=\"http://192.168.15.111:81/stream\">\n</iframe>",
+        "format": "<iframe id=\"Video\" title=\"Video\" width=\"300\" height=\"200\"\n    src=\"http://192.168.15.110:81/stream\">\n</iframe>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
@@ -909,6 +872,43 @@
         "x": 600,
         "y": 120,
         "wires": []
+    },
+    {
+        "id": "f2bce85cace1091b",
+        "type": "string",
+        "z": "d6c0238f4ecb9fcd",
+        "name": "",
+        "methods": [
+            {
+                "name": "delRightMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "/"
+                    }
+                ]
+            },
+            {
+                "name": "append",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "/info.json"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 670,
+        "y": 500,
+        "wires": [
+            [
+                "57909e3646ba014f"
+            ]
+        ]
     },
     {
         "id": "7db19ffd63de6a8a",

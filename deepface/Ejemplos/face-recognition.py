@@ -9,7 +9,6 @@ print ("Buscando rostro")
 df = DeepFace.find (img_path = "/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/deepface/faces/carrie1.png", db_path = "/home/hugo/Documents/GitHub/apertura-puertas-reconocimiento-facial/deepface/my_db", enforce_detection = "false")
 print ("Resultado ")
 print (df)
-print ("Imagen de mayor similitud")
-print (df.identity[0])
+
 # print ("Imagen de similitud secundara")
 # print (df.identity[1])
